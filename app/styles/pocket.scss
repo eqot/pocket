@@ -1,0 +1,13 @@
+$base-color: gray;
+
+.pocket {
+  position: absolute;
+  top: 50%;
+  right: 0;
+
+  padding: 8px;
+
+  color: $base-color;
+
+  outline: solid 1px $base-color;
+}
