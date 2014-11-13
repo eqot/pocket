@@ -1,13 +1,37 @@
-$base-color: gray;
+$dimmed-color: lightgray;
+$base-color: #333;
+
+$close-width: 4em;
+$close-height: 2.5em;
+$width: 30em;
+$height: 20em;
+
+$border-radius: 6px;
 
 .pocket {
   position: absolute;
   top: 50%;
   right: 0;
 
+  width: $close-width;
+  height: $close-height;
+
   padding: 8px;
 
-  color: $base-color;
+  color: $dimmed-color;
 
-  outline: solid 1px $base-color;
+  border: $dimmed-color solid 1px;
+  border-right: 0px;
+  border-top-left-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+
+  transition: all 0.2s;
+
+  &-open {
+    width: $width;
+    height: $height;
+
+    color: $base-color;
+    border-color: $base-color;
+  }
 }
