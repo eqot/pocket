@@ -32,7 +32,16 @@ $border-radius: 6px;
 
   z-index: 100;
 
-  &-open {
+  .lock {
+    float: right;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: all 0.2s;
+  }
+
+  &-open, &-locked {
     top: 10%;
 
     width: $open-width;
@@ -42,5 +51,10 @@ $border-radius: 6px;
     background-color: $background-color;
 
     border-color: $open-color;
+
+    .lock {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }
