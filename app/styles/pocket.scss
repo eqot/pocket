@@ -1,10 +1,12 @@
+$background-color: rgba(255, 255, 255, 0.9);
+
 $close-width: 4em;
 $close-height: 2.5em;
 $close-color: lightgray;
 
 $open-width: 30em;
-$open-height: 20em;
-$open-color: #333;
+$open-height: 80%;
+$open-color: #555;
 
 $border-radius: 6px;
 
@@ -19,6 +21,7 @@ $border-radius: 6px;
   padding: 8px;
 
   color: $close-color;
+  background-color: $background-color;
 
   border: $close-color solid 1px;
   border-right: 0px;
@@ -27,12 +30,31 @@ $border-radius: 6px;
 
   transition: all 0.2s;
 
-  &-open {
+  z-index: 100;
+
+  .lock {
+    float: right;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: all 0.2s;
+  }
+
+  &-open, &-locked {
+    top: 10%;
+
     width: $open-width;
     height: $open-height;
 
     color: $open-color;
+    background-color: $background-color;
 
     border-color: $open-color;
+
+    .lock {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }
