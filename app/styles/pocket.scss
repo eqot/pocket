@@ -88,3 +88,23 @@ $transition-duration: 0.2s;
     padding: 2px;
   }
 }
+
+.pocket-label {
+  display: inline;
+}
+
+.pocket-textarea {
+  display: none;
+
+  padding: 0;
+}
+
+.pocket-label-edit {
+  .pocket-label {
+    display: none;
+  }
+
+  .pocket-textarea {
+    display: inline;
+  }
+}

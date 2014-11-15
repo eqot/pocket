@@ -12,6 +12,8 @@ class Pocket
   GROUP_CLASS: 'pocket-group'
   LIST_CLASS: 'pocket-list'
   LABEL_CLASS: 'pocket-label'
+  TEXTAREA_CLASS: 'pocket-textarea'
+  LABEL_EDIT_CLASS: 'pocket-label-edit'
 
   element: null
   checkbox: null
@@ -22,7 +24,7 @@ class Pocket
 
     @element = document.createElement 'div'
     @element.classList.add 'pocket'
-    # @element.classList.add @LOCKED_CLASS
+    @element.classList.add @LOCKED_CLASS
     @element.innerText = 'Pocket'
     @element.addEventListener 'mouseover', @onMouseOver.bind(@)
     @element.addEventListener 'mouseleave', @onMouseLeave.bind(@)
@@ -59,10 +61,7 @@ class Pocket
     group = document.createElement 'div'
     group.classList.add @GROUP_CLASS
 
-    text = document.createElement 'span'
-    text.classList.add @LABEL_CLASS
-    text.innerText = label
-    group.appendChild text
+    @addLabel group, label
 
     list = document.createElement 'ul'
     list.classList.add @LIST_CLASS
@@ -72,6 +71,46 @@ class Pocket
     group.appendChild list
 
     @element.appendChild group
+
+  addLabel: (parent, label) ->
+    text = document.createElement 'span'
+    text.classList.add @LABEL_CLASS
+    text.innerText = label
+    text.addEventListener 'dblclick', @editLabel.bind(@)
+    parent.appendChild text
+
+    textArea = document.createElement 'textarea'
+    textArea.classList.add @TEXTAREA_CLASS
+    textArea.setAttribute 'rows', 1
+    textArea.addEventListener 'keydown', @onLabelKeyDown.bind(@)
+    textArea.pocketText = text
+    text.pocketTextArea = textArea
+    parent.appendChild textArea
+
+  editLabel: (event) ->
+    text  = event.target
+    textArea = text.pocketTextArea
+    textArea.value = text.innerText
+    textArea.focus()
+
+    group = text.parentElement
+    group.classList.add @LABEL_EDIT_CLASS
+
+  onLabelKeyDown: (event) ->
+    if event.keyCode is 13  # Return key
+      event.preventDefault()
+
+      textArea = event.target
+      text = textArea.pocketText
+      if textArea.value.length > 0
+        text.innerText = textArea.value
+
+      group = event.target.parentElement
+      group.classList.remove @LABEL_EDIT_CLASS
+
+    else if event.keyCode is 27  # ESC key
+      group = event.target.parentElement
+      group.classList.remove @LABEL_EDIT_CLASS
 
   bindSortables: ->
     $('#sortable1, #sortable2, #sortable3').sortable({
