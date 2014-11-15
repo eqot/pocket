@@ -37,15 +37,6 @@ $transition-duration: 0.2s;
 
   z-index: 100;
 
-  .lock {
-    float: right;
-
-    visibility: hidden;
-    opacity: 0;
-
-    transition: all $transition-duration;
-  }
-
   &-open, &-locked {
     top: 10%;
 
@@ -56,16 +47,20 @@ $transition-duration: 0.2s;
     background-color: $background-color;
 
     border-color: $open-color;
-
-    .lock {
-      visibility: visible;
-      opacity: 1;
-    }
   }
 }
 
+.pocket-lock {
+  float: right;
+
+  visibility: hidden;
+  opacity: 0;
+
+  transition: all $transition-duration;
+}
+
 .pocket-open, .pocket-locked {
-  .pocket-group {
+  .pocket-lock, .pocket-group {
     visibility: visible;
     opacity: 1;
   }

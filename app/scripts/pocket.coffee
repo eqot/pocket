@@ -2,37 +2,26 @@
 
 class Pocket
 
-  State:
-    OPEN: 'open'
-    CLOSE: 'close'
-    NORMAL: 'normal'
-    EDIT: 'edit'
-  state: null
-
-  OPEN_CLASS: 'pocket-open'
-  LOCKED_CLASS: 'pocket-locked'
-  GROUP_CLASS: 'pocket-group'
-  LIST_CLASS: 'pocket-list'
-  LABEL_CLASS: 'pocket-label'
-  TEXTAREA_CLASS: 'pocket-textarea'
-  LABEL_EDIT_CLASS: 'pocket-label-edit'
+  Class:
+    BASE: 'pocket'
+    LOCK: 'pocket-lock'
+    STATE_OPEN: 'pocket-open'
+    STATE_LOCKED: 'pocket-locked'
 
   element: null
   checkbox: null
 
   constructor: ->
-    @state = @State.CLOSE
-
     @element = document.createElement 'div'
-    @element.classList.add 'pocket'
-    @element.classList.add @LOCKED_CLASS
+    @element.classList.add @Class.BASE
+    @element.classList.add @Class.STATE_LOCKED
     @element.innerText = 'Pocket'
     @element.addEventListener 'mouseover', @onMouseOver.bind(@)
     @element.addEventListener 'mouseleave', @onMouseLeave.bind(@)
 
     @checkbox = document.createElement 'input'
     @checkbox.setAttribute 'type', 'checkbox'
-    @checkbox.classList.add 'lock'
+    @checkbox.classList.add @Class.LOCK
     @checkbox.addEventListener 'change', @onLockChange.bind(@)
     @element.appendChild @checkbox
 
@@ -44,27 +33,23 @@ class Pocket
     @bindSortables()
 
   onMouseOver: ->
-    @state = @State.OPEN
-
-    @element.classList.add @OPEN_CLASS
+    @element.classList.add @Class.STATE_OPEN
 
   onMouseLeave: ->
-    @state = @State.CLOSE
-
-    @element.classList.remove @OPEN_CLASS
+    @element.classList.remove @Class.STATE_OPEN
 
   onLockChange: ->
     if @checkbox.checked
-      @element.classList.add @LOCKED_CLASS
+      @element.classList.add @Class.STATE_LOCKED
     else
-      @element.classList.remove @LOCKED_CLASS
+      @element.classList.remove @Class.STATE_LOCKED
 
   addGroup: (label) ->
     @element.appendChild new PocketGroup label
 
   bindSortables: ->
     $('#sortable1, #sortable2, #sortable3').sortable({
-      connectWith: '.' + @LIST_CLASS
+      connectWith: '.' + @Class.LIST
     }).disableSelection()
 
 
