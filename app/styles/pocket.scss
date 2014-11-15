@@ -26,9 +26,12 @@ $transition-duration: 0.2s;
   background-color: $background-color;
 
   border: $close-color solid 1px;
+  outline: rgba(255, 255, 255, 0) solid 1px;
   border-right: 0px;
   border-top-left-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
+
+  overflow-y: scroll;
 
   transition: all $transition-duration;
 
@@ -74,6 +77,7 @@ $transition-duration: 0.2s;
   transition: all $transition-duration;
 
   padding: 6px;
+  margin-bottom: 6px;
 
   background-color: #fefced;
 
