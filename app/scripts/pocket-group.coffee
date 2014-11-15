@@ -25,13 +25,13 @@ class PocketGroup
 
     @label = document.createElement 'span'
     @label.classList.add @Class.LABEL
-    @label.innerText = label
     @label.addEventListener 'dblclick', @editLabel.bind(@)
     @element.appendChild @label
 
     @textArea = document.createElement 'textarea'
     @textArea.classList.add @Class.TEXTAREA
     @textArea.setAttribute 'rows', 1
+    @textArea.setAttribute 'placeholder', 'Label'
     @textArea.addEventListener 'keydown', @onKeyDown.bind(@)
     @element.appendChild @textArea
 
@@ -43,6 +43,14 @@ class PocketGroup
       placeholder: @Class.PLACEHOLDER
     }).disableSelection()
     @element.appendChild @list
+
+    if label?
+      @label.innerText = label
+    else
+      @element.classList.add @Class.EDIT
+
+      @textArea.focus()
+      @textArea.select()
 
     return @element
 
