@@ -8,6 +8,8 @@ $open-width: 30em;
 $open-height: 80%;
 $open-color: #555;
 
+$placeholder-color: orange;
+
 $border-radius: 6px;
 
 $transition-duration: 0.2s;
@@ -106,4 +108,11 @@ $transition-duration: 0.2s;
   .pocket-textarea {
     display: inline;
   }
+}
+
+.pocket-placeholder {
+  list-style-type: none;
+
+  height: 1.6em;
+  border: $placeholder-color dashed 1px;
 }

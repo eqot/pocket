@@ -8,6 +8,7 @@ class PocketGroup
     TEXTAREA: 'pocket-textarea'
     EDIT: 'pocket-edit'
     LIST: 'pocket-list'
+    PLACEHOLDER: 'pocket-placeholder'
 
   className: null
 
@@ -39,6 +40,7 @@ class PocketGroup
     @list.classList.add @className
     $(@list).sortable({
       connectWith: '.' + @className
+      placeholder: @Class.PLACEHOLDER
     }).disableSelection()
     @element.appendChild @list
 

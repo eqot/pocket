@@ -54,6 +54,7 @@ class Pocket
   bindSortables: ->
     $('.' + @className).sortable({
       connectWith: '.' + @className
+      placeholder: 'pocket-placeholder'
     }).disableSelection()
 
 
