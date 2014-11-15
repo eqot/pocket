@@ -10,6 +10,8 @@ $open-color: #555;
 
 $border-radius: 6px;
 
+$transition-duration: 0.2s;
+
 .pocket {
   position: absolute;
   top: 50%;
@@ -28,7 +30,7 @@ $border-radius: 6px;
   border-top-left-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
 
-  transition: all 0.2s;
+  transition: all $transition-duration;
 
   z-index: 100;
 
@@ -38,7 +40,7 @@ $border-radius: 6px;
     visibility: hidden;
     opacity: 0;
 
-    transition: all 0.2s;
+    transition: all $transition-duration;
   }
 
   &-open, &-locked {
@@ -59,12 +61,24 @@ $border-radius: 6px;
   }
 }
 
+.pocket-open, .pocket-locked {
+  .pocket-group {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
 .pocket-group {
-  padding: 8px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all $transition-duration;
+
+  padding: 6px;
 
   background-color: #fefced;
 
   border: dotted 1px;
+  border-radius: $border-radius;
 
   .pocket-label {
     font-weight: 500;
