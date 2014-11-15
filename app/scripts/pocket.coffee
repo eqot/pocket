@@ -5,6 +5,8 @@ class Pocket
   State:
     OPEN: 'open'
     CLOSE: 'close'
+    NORMAL: 'normal'
+    EDIT: 'edit'
   state: null
 
   OPEN_CLASS: 'pocket-open'
@@ -94,7 +96,7 @@ class Pocket
     textArea.focus()
 
     group = text.parentElement
-    group.classList.add @LABEL_EDIT_CLASS
+    @changeGroupState group, @State.EDIT
 
   onLabelKeyDown: (event) ->
     if event.keyCode is 13  # Return key
@@ -106,11 +108,18 @@ class Pocket
         text.innerText = textArea.value
 
       group = event.target.parentElement
-      group.classList.remove @LABEL_EDIT_CLASS
+      @changeGroupState group, @State.NORMAL
 
     else if event.keyCode is 27  # ESC key
       group = event.target.parentElement
-      group.classList.remove @LABEL_EDIT_CLASS
+      @changeGroupState group, @State.NORMAL
+
+  changeGroupState: (element, state) ->
+    switch state
+      when @State.EDIT
+        element.classList.add @LABEL_EDIT_CLASS
+      else
+        element.classList.remove @LABEL_EDIT_CLASS
 
   bindSortables: ->
     $('#sortable1, #sortable2, #sortable3').sortable({
