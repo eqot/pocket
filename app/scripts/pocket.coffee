@@ -8,10 +8,14 @@ class Pocket
     STATE_OPEN: 'pocket-open'
     STATE_LOCKED: 'pocket-locked'
 
+  className: null
+
   element: null
   checkbox: null
 
-  constructor: ->
+  constructor: (className) ->
+    @className = className || 'pocket-list'
+
     @element = document.createElement 'div'
     @element.classList.add @Class.BASE
     @element.classList.add @Class.STATE_LOCKED
@@ -27,10 +31,10 @@ class Pocket
 
     document.body.appendChild @element
 
+    @bindSortables()
+
     @addGroup 'foo'
     @addGroup 'bar'
-
-    @bindSortables()
 
   onMouseOver: ->
     @element.classList.add @Class.STATE_OPEN
@@ -45,12 +49,12 @@ class Pocket
       @element.classList.remove @Class.STATE_LOCKED
 
   addGroup: (label) ->
-    @element.appendChild new PocketGroup label
+    @element.appendChild new PocketGroup @className, label
 
   bindSortables: ->
-    $('#sortable1, #sortable2, #sortable3').sortable({
-      connectWith: '.' + @Class.LIST
+    $('.' + @className).sortable({
+      connectWith: '.' + @className
     }).disableSelection()
 
 
-pocket = new Pocket()
+window.Pocket = Pocket

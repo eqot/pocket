@@ -9,12 +9,16 @@ class PocketGroup
     EDIT: 'pocket-edit'
     LIST: 'pocket-list'
 
+  className: null
+
   element: null
   label: null
   textArea: null
   list: null
 
-  constructor: (label) ->
+  constructor: (className, label) ->
+    @className = className || ''
+
     @element = document.createElement 'div'
     @element.classList.add @Class.GROUP
 
@@ -32,8 +36,9 @@ class PocketGroup
 
     @list = document.createElement 'ul'
     @list.classList.add @Class.LIST
+    @list.classList.add @className
     $(@list).sortable({
-      connectWith: '.' + @Class.LIST
+      connectWith: '.' + @className
     }).disableSelection()
     @element.appendChild @list
 
