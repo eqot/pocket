@@ -4,6 +4,7 @@ class Pocket
 
   Class:
     BASE: 'pocket'
+    BUTTON: 'pocket-button'
     LOCK: 'pocket-lock'
     STATE_OPEN: 'pocket-open'
     STATE_LOCKED: 'pocket-locked'
@@ -29,6 +30,12 @@ class Pocket
     @checkbox.addEventListener 'change', @onLockChange.bind(@)
     @element.appendChild @checkbox
 
+    @button = document.createElement 'button'
+    @button.classList.add @Class.BUTTON
+    @button.innerText = '+'
+    @button.addEventListener 'click', @addGroup.bind(@)
+    @element.appendChild @button
+
     document.body.appendChild @element
 
     @bindSortables()
@@ -49,7 +56,10 @@ class Pocket
       @element.classList.remove @Class.STATE_LOCKED
 
   addGroup: (label) ->
-    @element.appendChild new PocketGroup @className, label
+    if typeof label is 'string'
+      @element.appendChild new PocketGroup @className, label
+    else
+      @element.appendChild new PocketGroup @className
 
   bindSortables: ->
     $('.' + @className).sortable({

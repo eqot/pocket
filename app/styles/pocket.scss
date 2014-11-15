@@ -54,6 +54,17 @@ $transition-duration: 0.2s;
   }
 }
 
+.pocket-button {
+  float: right;
+
+  width: 1.4em;
+  height: 1.4em;
+  line-height: 1em;
+
+  padding: 0;
+  margin-right: 6px;
+}
+
 .pocket-lock {
   float: right;
 
