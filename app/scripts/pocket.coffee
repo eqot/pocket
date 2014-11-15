@@ -90,10 +90,13 @@ class Pocket
     parent.appendChild textArea
 
   editLabel: (event) ->
+    event.preventDefault()
+
     text  = event.target
     textArea = text.pocketTextArea
     textArea.value = text.innerText
     textArea.focus()
+    textArea.select()
 
     group = text.parentElement
     @changeGroupState group, @State.EDIT
