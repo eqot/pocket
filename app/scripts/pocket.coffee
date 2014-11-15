@@ -12,6 +12,7 @@ class Pocket
 
   element: null
   checkbox: null
+  sortable: null
 
   constructor: ->
     @state = @State.CLOSE
@@ -28,7 +29,14 @@ class Pocket
     @checkbox.addEventListener 'change', @onLockChange.bind(@)
     @element.appendChild @checkbox
 
+    @sortable = document.createElement 'ul'
+    @sortable.setAttribute 'id', 'sortable3'
+    @sortable.classList.add 'connectedSortable'
+    @element.appendChild @sortable
+
     document.body.appendChild @element
+
+    @bindSortables()
 
   onMouseOver: ->
     @state = @State.OPEN
@@ -45,6 +53,11 @@ class Pocket
       @element.classList.add @LOCKED_CLASS
     else
       @element.classList.remove @LOCKED_CLASS
+
+  bindSortables: ->
+    $('#sortable1, #sortable2, #sortable3').sortable({
+      connectWith: '.connectedSortable'
+    }).disableSelection()
 
 
 pocket = new Pocket()
