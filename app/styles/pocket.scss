@@ -58,3 +58,19 @@ $border-radius: 6px;
     }
   }
 }
+
+.pocket-group {
+  padding: 8px;
+
+  background-color: #fefced;
+
+  border: dotted 1px;
+
+  .pocket-label {
+    font-weight: 500;
+  }
+
+  .pocket-list {
+    padding: 2px;
+  }
+}
