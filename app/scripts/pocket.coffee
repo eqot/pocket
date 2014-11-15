@@ -2,81 +2,60 @@
 
 class Pocket
 
-  State:
-    OPEN: 'open'
-    CLOSE: 'close'
-  state: null
+  Class:
+    BASE: 'pocket'
+    LOCK: 'pocket-lock'
+    STATE_OPEN: 'pocket-open'
+    STATE_LOCKED: 'pocket-locked'
 
-  OPEN_CLASS: 'pocket-open'
-  LOCKED_CLASS: 'pocket-locked'
-  GROUP_CLASS: 'pocket-group'
-  LIST_CLASS: 'pocket-list'
-  LABEL_CLASS: 'pocket-label'
+  className: null
 
   element: null
   checkbox: null
-  sortable: null
 
-  constructor: ->
-    @state = @State.CLOSE
+  constructor: (className) ->
+    @className = className || 'pocket-list'
 
     @element = document.createElement 'div'
-    @element.classList.add 'pocket'
-    # @element.classList.add @LOCKED_CLASS
+    @element.classList.add @Class.BASE
+    @element.classList.add @Class.STATE_LOCKED
     @element.innerText = 'Pocket'
     @element.addEventListener 'mouseover', @onMouseOver.bind(@)
     @element.addEventListener 'mouseleave', @onMouseLeave.bind(@)
 
     @checkbox = document.createElement 'input'
     @checkbox.setAttribute 'type', 'checkbox'
-    @checkbox.classList.add 'lock'
+    @checkbox.classList.add @Class.LOCK
     @checkbox.addEventListener 'change', @onLockChange.bind(@)
     @element.appendChild @checkbox
 
     document.body.appendChild @element
 
-    @addGroup 'Test'
-
     @bindSortables()
 
-  onMouseOver: ->
-    @state = @State.OPEN
+    @addGroup 'foo'
+    @addGroup 'bar'
 
-    @element.classList.add @OPEN_CLASS
+  onMouseOver: ->
+    @element.classList.add @Class.STATE_OPEN
 
   onMouseLeave: ->
-    @state = @State.CLOSE
-
-    @element.classList.remove @OPEN_CLASS
+    @element.classList.remove @Class.STATE_OPEN
 
   onLockChange: ->
     if @checkbox.checked
-      @element.classList.add @LOCKED_CLASS
+      @element.classList.add @Class.STATE_LOCKED
     else
-      @element.classList.remove @LOCKED_CLASS
+      @element.classList.remove @Class.STATE_LOCKED
 
   addGroup: (label) ->
-    group = document.createElement 'div'
-    group.classList.add @GROUP_CLASS
-
-    text = document.createElement 'span'
-    text.classList.add @LABEL_CLASS
-    text.innerText = label
-    group.appendChild text
-
-    list = document.createElement 'ul'
-    list.classList.add @LIST_CLASS
-    $(list).sortable({
-      connectWith: '.' + @LIST_CLASS
-    }).disableSelection()
-    group.appendChild list
-
-    @element.appendChild group
+    @element.appendChild new PocketGroup @className, label
 
   bindSortables: ->
-    $('#sortable1, #sortable2, #sortable3').sortable({
-      connectWith: '.' + @LIST_CLASS
+    $('.' + @className).sortable({
+      connectWith: '.' + @className
+      placeholder: 'pocket-placeholder'
     }).disableSelection()
 
 
-pocket = new Pocket()
+window.Pocket = Pocket

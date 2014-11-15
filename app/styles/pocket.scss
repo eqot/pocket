@@ -8,6 +8,8 @@ $open-width: 30em;
 $open-height: 80%;
 $open-color: #555;
 
+$placeholder-color: orange;
+
 $border-radius: 6px;
 
 $transition-duration: 0.2s;
@@ -26,22 +28,18 @@ $transition-duration: 0.2s;
   background-color: $background-color;
 
   border: $close-color solid 1px;
+  outline: rgba(255, 255, 255, 0) solid 1px;
   border-right: 0px;
   border-top-left-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
+
+  overflow-y: scroll;
 
   transition: all $transition-duration;
 
   z-index: 100;
 
-  .lock {
-    float: right;
-
-    visibility: hidden;
-    opacity: 0;
-
-    transition: all $transition-duration;
-  }
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
 
   &-open, &-locked {
     top: 10%;
@@ -53,16 +51,20 @@ $transition-duration: 0.2s;
     background-color: $background-color;
 
     border-color: $open-color;
-
-    .lock {
-      visibility: visible;
-      opacity: 1;
-    }
   }
 }
 
+.pocket-lock {
+  float: right;
+
+  visibility: hidden;
+  opacity: 0;
+
+  transition: all $transition-duration;
+}
+
 .pocket-open, .pocket-locked {
-  .pocket-group {
+  .pocket-lock, .pocket-group {
     visibility: visible;
     opacity: 1;
   }
@@ -74,6 +76,7 @@ $transition-duration: 0.2s;
   transition: all $transition-duration;
 
   padding: 6px;
+  margin-bottom: 6px;
 
   background-color: #fefced;
 
@@ -87,4 +90,31 @@ $transition-duration: 0.2s;
   .pocket-list {
     padding: 2px;
   }
+}
+
+.pocket-label {
+  display: inline;
+}
+
+.pocket-textarea {
+  display: none;
+
+  padding: 0;
+}
+
+.pocket-edit {
+  .pocket-label {
+    display: none;
+  }
+
+  .pocket-textarea {
+    display: inline;
+  }
+}
+
+.pocket-placeholder {
+  list-style-type: none;
+
+  height: 1.6em;
+  border: $placeholder-color dashed 1px;
 }
