@@ -17,7 +17,7 @@ class PocketGroup
   textArea: null
   list: null
 
-  constructor: (className, label) ->
+  constructor: (className, label, items) ->
     @className = className || ''
 
     @element = document.createElement 'div'
@@ -44,7 +44,7 @@ class PocketGroup
     }).disableSelection()
     @element.appendChild @list
 
-    if label?
+    if typeof label is 'string'
       @label.innerText = label
     else
       @element.classList.add @Class.EDIT
@@ -52,7 +52,7 @@ class PocketGroup
       @textArea.focus()
       @textArea.select()
 
-    return @element
+    @setValue items
 
   editLabel: (event) ->
     event.preventDefault()
@@ -76,6 +76,32 @@ class PocketGroup
       event.preventDefault()
 
       @element.classList.remove @Class.EDIT
+
+  addItem: (label) ->
+    item = document.createElement 'li'
+    item.innerText = label
+    @list.appendChild item
+
+  value: (value) ->
+    if value?
+      @setValue value
+    else
+      return @getValue()
+
+  setValue: (value) ->
+    if value?
+      for item in value
+        @addItem item
+
+  getValue: ->
+    value =
+      label: @label.innerText
+      items: []
+
+    for item in @list.querySelectorAll 'li'
+      value.items.push item.innerText
+
+    return value
 
 
 window.PocketGroup = PocketGroup
