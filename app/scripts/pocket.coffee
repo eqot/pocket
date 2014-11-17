@@ -14,6 +14,8 @@ class Pocket
   element: null
   checkbox: null
 
+  groups: null
+
   constructor: (className) ->
     @className = className || 'pocket-list'
 
@@ -40,6 +42,8 @@ class Pocket
 
     @bindSortables()
 
+    @group = []
+
     @addGroup 'foo'
     @addGroup 'bar'
 
@@ -56,16 +60,35 @@ class Pocket
       @element.classList.remove @Class.STATE_LOCKED
 
   addGroup: (label) ->
+    group = null
     if typeof label is 'string'
-      @element.appendChild new PocketGroup @className, label
+      group = new PocketGroup @className, label
     else
-      @element.appendChild new PocketGroup @className
+      group = new PocketGroup @className
+    @element.appendChild group.element
+
+    @group.push group
 
   bindSortables: ->
     $('.' + @className).sortable({
       connectWith: '.' + @className
       placeholder: 'pocket-placeholder'
     }).disableSelection()
+
+  value: (value) ->
+    if value?
+      @setValue value
+    else
+      return @getValue()
+
+  setValue: (value) ->
+
+  getValue: ->
+    value = []
+    for group in @group
+      value.push group.value()
+
+    return value
 
 
 window.Pocket = Pocket

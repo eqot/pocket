@@ -25,4 +25,9 @@ navdrawerContainer.addEventListener 'click', (event) ->
   if (event.target.nodeName is 'A' || event.target.nodeName is 'LI')
     closeMenu()
 
-new Pocket('sortable')
+pocket = new Pocket('sortable')
+
+test = querySelector '#test'
+test.addEventListener 'click', ->
+  value = pocket.value()
+  console.log JSON.stringify value

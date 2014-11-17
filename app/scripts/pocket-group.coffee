@@ -52,8 +52,6 @@ class PocketGroup
       @textArea.focus()
       @textArea.select()
 
-    return @element
-
   editLabel: (event) ->
     event.preventDefault()
 
@@ -76,6 +74,24 @@ class PocketGroup
       event.preventDefault()
 
       @element.classList.remove @Class.EDIT
+
+  value: (value) ->
+    if value?
+      @setValue value
+    else
+      return @getValue()
+
+  setValue: (value) ->
+
+  getValue: ->
+    value =
+      label: @label.innerText
+      items: []
+
+    for item in @list.querySelectorAll 'li'
+      value.items.push item.innerText
+
+    return value
 
 
 window.PocketGroup = PocketGroup
