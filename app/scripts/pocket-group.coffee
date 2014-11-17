@@ -44,7 +44,7 @@ class PocketGroup
     }).disableSelection()
     @element.appendChild @list
 
-    if label?
+    if typeof label is 'string'
       @label.innerText = label
     else
       @element.classList.add @Class.EDIT

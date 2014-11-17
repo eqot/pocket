@@ -42,7 +42,7 @@ class Pocket
 
     @bindSortables()
 
-    @group = []
+    @groups = []
 
     @addGroup 'foo'
     @addGroup 'bar'
@@ -60,14 +60,9 @@ class Pocket
       @element.classList.remove @Class.STATE_LOCKED
 
   addGroup: (label) ->
-    group = null
-    if typeof label is 'string'
-      group = new PocketGroup @className, label
-    else
-      group = new PocketGroup @className
+    group = new PocketGroup @className, label
+    @groups.push group
     @element.appendChild group.element
-
-    @group.push group
 
   bindSortables: ->
     $('.' + @className).sortable({
@@ -85,7 +80,7 @@ class Pocket
 
   getValue: ->
     value = []
-    for group in @group
+    for group in @groups
       value.push group.value()
 
     return value
