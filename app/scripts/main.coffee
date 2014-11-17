@@ -31,3 +31,8 @@ test = querySelector '#test'
 test.addEventListener 'click', ->
   value = pocket.value()
   console.log JSON.stringify value
+
+test2 = querySelector '#test2'
+test2.addEventListener 'click', ->
+  value = '[{"label":"foo2","items":["Item 1"]},{"label":"bar2","items":["Item 3","Item 4"]},{"label":"Test","items":["Item 3"]}]'
+  pocket.value JSON.parse value

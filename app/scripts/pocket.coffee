@@ -59,8 +59,8 @@ class Pocket
     else
       @element.classList.remove @Class.STATE_LOCKED
 
-  addGroup: (label) ->
-    group = new PocketGroup @className, label
+  addGroup: (label, items) ->
+    group = new PocketGroup @className, label, items
     @groups.push group
     @element.appendChild group.element
 
@@ -76,7 +76,17 @@ class Pocket
     else
       return @getValue()
 
+  clean: (value) ->
+    for group in @groups
+      group.element.remove()
+
+    @groups = []
+
   setValue: (value) ->
+    @clean()
+
+    for group in value
+      @addGroup group.label, group.items
 
   getValue: ->
     value = []
