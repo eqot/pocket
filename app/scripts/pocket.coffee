@@ -21,7 +21,7 @@ class Pocket
 
     @element = document.createElement 'div'
     @element.classList.add @Class.BASE
-    @element.classList.add @Class.STATE_LOCKED
+    # @element.classList.add @Class.STATE_LOCKED
     @element.innerText = 'Pocket'
     @element.addEventListener 'mouseover', @onMouseOver.bind(@)
     @element.addEventListener 'mouseleave', @onMouseLeave.bind(@)
