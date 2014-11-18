@@ -68,22 +68,23 @@ $transition-duration: 0.2s;
 .pocket-lock {
   float: right;
 
+}
+
+.pocket-button, .pocket-lock, .pocket-group {
+  transition: all $transition-duration;
+
   visibility: hidden;
   opacity: 0;
-
-  transition: all $transition-duration;
 }
 
 .pocket-open, .pocket-locked {
-  .pocket-lock, .pocket-group {
+  .pocket-button, .pocket-lock, .pocket-group {
     visibility: visible;
     opacity: 1;
   }
 }
 
 .pocket-group {
-  visibility: hidden;
-  opacity: 0;
   transition: all $transition-duration;
 
   padding: 6px;
